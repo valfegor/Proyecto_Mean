@@ -14,3 +14,16 @@ const {dbConnection} = require('./db/db')
 //si no esta esta linea genera fallos a la hora de generar los archivos.
 
 require('dotenv').config();
+
+//todo el servidor se utiliza 
+//aqui se construye el servidor express
+const app = express();
+
+//nuestro servidor va a utilizar todo lo de express , va a utilizar formato .json
+//las reglas de backend seran utilizadas por cors
+app.use(express.json());
+app.use(cors());
+
+//la aplicacion se conecta por medio de un puerto es decir va a escuchar el siguiente puerto.
+//el servidor backend es el puerto 3001 , cuando se conecte al servidor va a enviar (el servidor esta corriendo en el puerto 3001)
+app.listen(process.env.PORT,()=>console.log("Backend Server Running  Ok On Port",process.env.PORT))
