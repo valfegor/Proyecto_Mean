@@ -16,3 +16,9 @@ db.createCollection("stock")
 db.createCollection("item")
 db.dropdataBase()=eliminar base de datos
 show collections = muestra las colecciones.
+db.stock.drop() = de esta manera se elimina la colleccion de la base de datos.
+cambiar nombre de la collecion
+dn["user"].renanameCollection("userapp")
+show collections
+como instertar un documento.
+db.user.insertOne({name:"Anthony",pass:"1234"})
