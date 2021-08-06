@@ -12,3 +12,7 @@ use = sirve para utilizar una base que ya existe o para crear una nueva.
 utilizando las flechas puedo navegar entre los comandos ya utilizados.
 como crear la collection?
 db.createCollection("user")
+db.createCollection("stock")
+db.createCollection("item")
+db.dropdataBase()=eliminar base de datos
+show collections = muestra las colecciones.
