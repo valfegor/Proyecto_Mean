@@ -8,5 +8,6 @@ const mongoose = require('mongoose');
 const roleSchema = new mongoose.Schema({
     name:string,
     description:string,
-    date:date,
+    //por defecto guarda la fecha del sistema , es la fecha del sistema del servidor de mongo
+    date:{type:Date,default:Date.now}
 })
