@@ -1,0 +1,3 @@
+show dbs = muestra las bases de datos
+db = muestra una base de datos tipo test
+db.help() = trae todos los metodos que puedo realizar en mongo.
