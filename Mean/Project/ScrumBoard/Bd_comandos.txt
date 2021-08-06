@@ -4,3 +4,11 @@ db.help() = trae todos los metodos que puedo realizar en mongo.
 Para crear la BD se necesita de ciertos pasos:
 Para utilizar Basededatos que ya existe
 use prueba2
+db = envia y dice en que base de datos estamos ubicados.
+db.dropDatabase(); = elimina la base de datos
+db = envia la base eliminada = es decir envia prueba 2 es un nombre almacenado en memoria , es decir como no le he dicho
+a que base quiero ir , ese nombre solamente esta en memoria
+use = sirve para utilizar una base que ya existe o para crear una nueva.
+utilizando las flechas puedo navegar entre los comandos ya utilizados.
+como crear la collection?
+db.createCollection("user")
