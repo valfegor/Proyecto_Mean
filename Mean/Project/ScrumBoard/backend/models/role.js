@@ -17,3 +17,5 @@ const roleSchema = new mongoose.Schema({
 //cuando lleguen los datos va a ir a mongo a hacer el registro
 //lo guarda en la coleccion rol 
 const role = mongoose.model('role',roleSchema)
+
+module.exports = role;
