@@ -7,12 +7,15 @@
 const Role = require("../models/role");
 
 //funcion asyncrona
-const registerRole = async () => {
-    
+//requiere de un request y un response
+//request , response es lo que va a devolver
+const registerRole = async (req,res) => {
+    //el cuerpo del json , el request trae la url de la apli , parametros ,cors,body (el json)
+    if(!req.body.name||)
 };
 
 
-const listRole = async () => {
+const listRole = async (req,res) => {
 
 };
 
