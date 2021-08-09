@@ -10,6 +10,9 @@ const cors = require('cors');
 
 const {dbConnection} = require('./db/db')
 
+//me traigo mi modulo de ROL
+const Role = require("./routes/role");
+
 //requiere la libreria que instalamos dotenv para configurar todas las variables de entorno
 //si no esta esta linea genera fallos a la hora de generar los archivos.
 
@@ -23,6 +26,8 @@ const app = express();
 //las reglas de backend seran utilizadas por cors
 app.use(express.json());
 app.use(cors());
+//desde el front me envia una peticion
+app.use("/api/role",Role);
 
 //la aplicacion se conecta por medio de un puerto es decir va a escuchar el siguiente puerto.
 //el servidor backend es el puerto 3001 , cuando se conecte al servidor va a enviar (el servidor esta corriendo en el puerto 3001)
