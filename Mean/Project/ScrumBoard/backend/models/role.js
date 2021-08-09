@@ -13,7 +13,7 @@ const roleSchema = new mongoose.Schema({
   description: String,
   //por defecto guarda la fecha del sistema , es la fecha del sistema del servidor de mongo
   date: { type: Date, default: Date.now },
-  bdStatus: Boolean,
+  dbStatus:Boolean,
 });
 
 //cuando lleguen los datos va a ir a mongo a hacer el registro
