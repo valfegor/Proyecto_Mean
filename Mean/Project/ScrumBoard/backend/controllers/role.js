@@ -29,12 +29,27 @@ const registerRole = async (req,res) => {
 
     const role = new Role({
         name:req.body.name,
+        description:req.body.description,
+        dbStatus:true,
     })
+    //los datos se guardan , es como un push
+    const result = await role.save();
+
+    //si resultado es true , si se guardo
+
+    if(!result) return re.status(401).send("Fallo el proceso al registrar el ROL");
+
+    // si si guardo envio el JSON que se ha guardado
+    return res.status(200).send({role});
 };
 
 
 const listRole = async (req,res) => {
-
+    const role = await Role.find()
+    if(!role) return res.status(401).send("No role");
+    //si si hay roles guardados.
+    //postman simula los fronts
+    return res.status(200).send({role});
 };
 
 //Exportamos las funciones , si tenemos mas , podemos agregarla a esta lista
