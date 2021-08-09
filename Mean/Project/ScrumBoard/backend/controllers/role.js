@@ -11,7 +11,25 @@ const Role = require("../models/role");
 //request , response es lo que va a devolver
 const registerRole = async (req,res) => {
     //el cuerpo del json , el request trae la url de la apli , parametros ,cors,body (el json)
-    if(!req.body.name||)
+    //esto si alguno de los datos enviados es false
+    if(!req.body.name||!req.body.description) return res.status(401).send("Process failed : Incomplete data");
+
+    //validar si el rol existe o no en mongo.
+    //como busco un registro o un documento en mongo
+    //utilizamos una funcion asyncrona
+    //la coleccion la tiene role que es el modelo
+    //rol una coleccion en base de datos que se llama role.
+    //coleccion .find one en los parentesis que vamos a buscar
+    //(si en toda la lista , es decir viene a buscar user en la coleccion
+    //request es un JSon 
+    //(se va a la coleecion role , si existe , va a buscar por un parametro , name user)
+    const existingRole = await Role.findOne({name: req.body.name});
+
+    if(existingRole) return res.status(401).send("Process failer : role already exist");
+
+    const role = new Role({
+        name:req.body.name,
+    })
 };
 
 
