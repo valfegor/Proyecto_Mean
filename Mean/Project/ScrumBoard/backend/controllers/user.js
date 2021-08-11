@@ -33,7 +33,14 @@ const registerUser = async (req,res) => {
 
     if(!result) return res.status(401).send("Please try again");
 
-        
+    //aqui si se aplica el try catch
+    
+    try {
+        let jwt = user.generateJWT();
+        return res.status(200).send({jwt});
+    } catch (e) {
+        return res.status(400).send("fallo al registrar los usuarios");
+    }
 
 }
 
