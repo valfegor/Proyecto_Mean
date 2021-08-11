@@ -25,10 +25,15 @@ const registerUser = async (req,res) => {
             email:req.body.email,
             password:hash,
             roleId:role._id,
+            dbStatus:true,
     });
 
 
+    let result = await user.save();
 
+    if(!result) return res.status(401).send("Please try again");
+
+        
 
 }
 
