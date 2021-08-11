@@ -37,7 +37,7 @@ const registerRole = async (req,res) => {
 
     //si resultado es true , si se guardo
 
-    if(!result) return re.status(401).send("Fallo el proceso al registrar el ROL");
+    if(!result) return res.status(401).send("Fallo el proceso al registrar el ROL");
 
     // si si guardo envio el JSON que se ha guardado
     return res.status(200).send({role});
@@ -45,8 +45,10 @@ const registerRole = async (req,res) => {
 
 
 const listRole = async (req,res) => {
+    //find devuelve un array
     const role = await Role.find()
-    if(!role) return res.status(401).send("No role");
+    //el 0 es null 0 es esta vacio []   
+    if(!role || role.length  === 0) return res.status(401).send("No role");
     //si si hay roles guardados.
     //postman simula los fronts
     return res.status(200).send({role});
