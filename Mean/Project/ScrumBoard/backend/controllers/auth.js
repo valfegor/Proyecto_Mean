@@ -33,3 +33,6 @@ const login = async(req,res)=>{
         return res.status(400).send("login error");
     }
 }   
+
+
+module.exports = {login}
