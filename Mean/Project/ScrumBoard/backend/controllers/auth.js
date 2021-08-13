@@ -13,6 +13,12 @@ const login = async(req,res)=>{
     //con el email que me llego voy a buscar a alguien en la base de datos. 
     let user = await User.findOne({email:req.body.email});
 
-    if(!user)return res.status(401).send("")
+    if(!user)return res.status(401).send("incorrect email or password")
 
-}
+    //elbcryptn os ayuda a comprar una contraseña encriptada con una normalita.
+
+    //nos ayuda a comparar si ese 1234 se puede comprar o es igual al password.
+
+    //necesita del password. y re quiere de la contraseña que ingresa el usuario
+    const hash = bcrypt.compare(req.body,password,user.password);
+}   
