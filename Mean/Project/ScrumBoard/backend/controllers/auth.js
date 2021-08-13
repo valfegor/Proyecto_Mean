@@ -21,4 +21,15 @@ const login = async(req,res)=>{
 
     //necesita del password. y re quiere de la contraseña que ingresa el usuario
     const hash = bcrypt.compare(req.body,password,user.password);
+
+    if(!hash) return res.status(400).send("incorrect email or password");
+
+    //si todo sale bien vamos a devolver un token con esos usuarios.
+
+    try {
+        const jwtToken = user.generateJWT();
+        return res.status(200).send({jwt})
+    } catch (e) {
+        return res.status(400).send("login error");
+    }
 }   
