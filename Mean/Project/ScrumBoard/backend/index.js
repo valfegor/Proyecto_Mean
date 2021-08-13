@@ -3,6 +3,9 @@ const express = require('express');
 //debemos tener una libreria que se encargue
 
 const cors = require('cors');
+
+
+const Login = require('./routes/auth');
 //cors ayuda para que las pautas y las conexiones sean correctas , que todo este en orden.
 
 //el modulo esta en ./db/db esta un archivo que se llama db
@@ -31,7 +34,7 @@ app.use(cors());
 //desde el front me envia una peticion
 app.use("/api/role",Role);
 app.use("/api/user",User);
-
+app.use("/api/auth",Login);
 //la aplicacion se conecta por medio de un puerto es decir va a escuchar el siguiente puerto.
 //el servidor backend es el puerto 3001 , cuando se conecte al servidor va a enviar (el servidor esta corriendo en el puerto 3001)
 app.listen(process.env.PORT,()=>console.log("Backend Server Running  Ok On Port",process.env.PORT))
