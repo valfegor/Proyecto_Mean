@@ -1,5 +1,5 @@
 //controlador del usuario.
-//recordemos que usuario tiene almacenados diferentes metodos como el jwt
+//recordemos que usuario tiene almacenados diferentes metodos como el
 const User = require("../models/user");
 const Role = require("../models/role")
 const bcrypt = require("bcrypt");
@@ -27,6 +27,8 @@ const registerUser = async (req,res) => {
             roleId:role._id,
             dbStatus:true,
     });
+
+  
 
 
     let result = await user.save();
