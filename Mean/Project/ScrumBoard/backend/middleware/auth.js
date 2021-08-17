@@ -16,7 +16,7 @@ const auth = async (req, res, next) => {
     //Es una funcion o metodo del string es decir separa , aqui necesito separar el token , y separo por espacio (bearer token TOKEN);
     //devuelve un array es decir genera un array de la siguiente manera Bearer ,  token , token en una posicion del array se guarda sin el espacio si tiene espacio 
     //si en la posicion 1 no hay ningun token
-    jwtToken.split(" ")[1];
+    jwtToken = jwtToken.split(" ")[1];
 
     if(!jwtToken) return res.status(400).send("Authorization denied : No token");
 
