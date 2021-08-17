@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 
 //construccion de la bd board
 const boardSchema = new mongoose.Schema({
-    userId:{type:mongoose.schema.ObjectId,ref:"user"},
+    userId:{ type: mongoose.Schema.ObjectId, ref: "user" },
     name:String,
     description:String,
     taskStatus:String,

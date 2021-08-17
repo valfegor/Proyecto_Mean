@@ -18,6 +18,8 @@ const Role = require("./routes/role");
 
 const User = require("./routes/user");
 
+const Board = require("./routes/board");
+
 //requiere la libreria que instalamos dotenv para configurar todas las variables de entorno
 //si no esta esta linea genera fallos a la hora de generar los archivos.
 
@@ -35,6 +37,7 @@ app.use(cors());
 app.use("/api/role",Role);
 app.use("/api/user",User);
 app.use("/api/auth",Login);
+app.use("/api/board",Board);
 //la aplicacion se conecta por medio de un puerto es decir va a escuchar el siguiente puerto.
 //el servidor backend es el puerto 3001 , cuando se conecte al servidor va a enviar (el servidor esta corriendo en el puerto 3001)
 app.listen(process.env.PORT,()=>console.log("Backend Server Running  Ok On Port",process.env.PORT))
