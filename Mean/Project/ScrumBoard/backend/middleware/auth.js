@@ -19,4 +19,20 @@ const auth = async (req, res, next) => {
     jwtToken.split(" ")[1];
 
     if(!jwtToken) return res.status(400).send("Authorization denied : No token");
+
+    try {
+        //voy a verificar si ese token es valido
+        //en el payload guardamos los datos del usuario es deicr nombre y id del usuario
+        //se obtiene el token y debe concidir con la estructura de mi app y que tenga la palabra secreta
+        //revisar modelo de usuario
+        const payload = await jwt.verify(jwtToken,process.env.SECRET_KEY_JWT);
+        //usuario que debe estar ya logeado.
+        req.user = payload;
+        //todo verificado se utiliza el next.
+        next();
+    } catch (error) {
+        return res.status(400).send("Authorization denied : Invalid token");
+    }
 }
+
+module.exports = auth;

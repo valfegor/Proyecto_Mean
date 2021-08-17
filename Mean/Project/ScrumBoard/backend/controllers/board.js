@@ -6,7 +6,8 @@ const saveTask = async (req,res) => {
 
 
     const board = new Board({
-        userId:req.body.userId,
+        //busqueda internamente
+        userId:req.user._id,
         name:req.body.name,
         description:req.body.description,
         taskStatus:"to-do",
