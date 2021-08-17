@@ -6,6 +6,6 @@ const loginController = require('../controllers/auth');
 
 //un login es una solicitud es un post , se envia una solicitud.
 
-router.post("login", loginController);
+router.post("/login", loginController.login);
 
 module.exports = router;
