@@ -20,7 +20,7 @@ const login = async(req,res)=>{
     //nos ayuda a comparar si ese 1234 se puede comprar o es igual al password.
 
     //necesita del password. y re quiere de la contraseña que ingresa el usuario
-    const hash = bcrypt.compare(req.body,password,user.password);
+    const hash = bcrypt.compare(req.body.password,user.password);
 
     if(!hash) return res.status(400).send("incorrect email or password");
 
@@ -28,7 +28,7 @@ const login = async(req,res)=>{
 
     try {
         const jwtToken = user.generateJWT();
-        return res.status(200).send({jwt})
+        return res.status(200).send({jwtToken})
     } catch (e) {
         return res.status(400).send("login error");
     }
