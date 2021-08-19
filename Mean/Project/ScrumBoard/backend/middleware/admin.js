@@ -1,4 +1,4 @@
-const role = require("../models/role");
+const Role = require("../models/role");
 
 const admin = async (req, res, next) => {
   //informacion del usuario nombre etc , rol , todo eso se guarda en request.user , cuando hacemos el login al final se envia en el payload
