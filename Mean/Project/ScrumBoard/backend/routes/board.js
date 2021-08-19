@@ -11,6 +11,9 @@ const validateUser = require('../middleware/ValidateUser');
 router.post("/saveTask",Auth,validateUser,boardController.saveTask);
 router.get("/listTask",Auth,validateUser,boardController.listTask);
 router.put("/updateTask",Auth,validateUser,boardController.updateTask);
-router.delete("/removeTask",Auth,validateUser,boardController.deleteTask);
+router.delete("/removeTask/:_id",
+Auth,validateUser,
+boardController.deleteTask
+);
 
 module.exports = router;
