@@ -14,6 +14,9 @@ const user = async (req,res,next) => {
     if(!validId) return res.status(400).send("Failed the process invalid ID");
     */
 
+    const validId = mongoose.Types.ObjectId.isValid(req.user._id);
+    if(!validId) return res.status(400).send("Process failed");
+
     const user = await User.findById(req.user._id);
 
     if(!user) return res.status(400).send("Authorization denied :");
