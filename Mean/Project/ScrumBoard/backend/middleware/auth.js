@@ -1,38 +1,39 @@
-//seguridad del login.
+//hacemos uso de nuestro web token.
 
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-//el middleware permite validar si el usuario esta autorizado o no para generar su login.
+//el middleware permite validar si el usuario registrado tiene permiso o no de realizar las tareas , para eso utilizamos el token , sin el token el usuario no debe de poder realizar estas acciones.
 
-
-const auth = async (req, res, next) => {
-    //estoy en la parte de autorization , es decir se va al authorization del header.
+//el middleware siempre tiene el parametro next.
+const auth = async (req,res,next) => {  
+    //es la cabecera en la cabecera se envia el token
     let jwtToken = req.header("Authorization");
 
-    //si no hay token.
+    //si el token es diferente o no tiene termina la ejecucion
+    if(!jwtToken) return res.status(400).send("No token please login");
 
-    if(!jwtToken) return res.status(400).send("Authorization denied : No token");
+    //aqui valido y separo el bearer y me quedo solamente con el token
+    jwtToken = jwtToken.split(" ")[1];
 
-    //Es una funcion o metodo del string es decir separa , aqui necesito separar el token , y separo por espacio (bearer token TOKEN);
-    //devuelve un array es decir genera un array de la siguiente manera Bearer ,  token , token en una posicion del array se guarda sin el espacio si tiene espacio 
-    //si en la posicion 1 no hay ningun token
-    jwToken = jwtToken.split(" ")[1];
+    console.log(jwtToken);
+    //aqui si no existe el token no permitimos el ingreso
+    if(!jwtToken) return res.status(400).send("invalid token");
 
-    if(!jwtToken) return res.status(400).send("Authorization denied : No token");
+    //hacemos un bloque trycatch
 
     try {
-        //voy a verificar si ese token es valido
-        //en el payload guardamos los datos del usuario es deicr nombre y id del usuario
-        //se obtiene el token y debe concidir con la estructura de mi app y que tenga la palabra secreta
-        //revisar modelo de usuario
+        //hacemos uso de nuestra variable payload.
+
         const payload = await jwt.verify(jwtToken,process.env.SECRET_KEY_JWT);
         //usuario que debe estar ya logeado.
         req.user = payload;
         //todo verificado se utiliza el next.
         next();
+
     } catch (error) {
-        return res.status(400).send("Authorization denied : Invalid token");
+    return res.status(400).send("Authorization denied : Invalid token");       
     }
+
 }
 
 module.exports = auth;
