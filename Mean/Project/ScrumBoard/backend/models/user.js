@@ -35,6 +35,7 @@ userSchema.methods.generateJWT = function () {
       //el this hace referencia a lo local
       _id: this._id, //este valor es el object_id
       name: this.name,
+      roleId: this.roleId,
       //cuando el codigo revise el JWT vea que la fecha es reciente
       iat: moment().unix(),
     },
