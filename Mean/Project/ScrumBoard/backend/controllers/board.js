@@ -32,7 +32,7 @@ const updateTask = async (req,res) => {
 
 }
 
-
+//un usuario puede tener multiples tareas por lo tanto si necesitamos del eliminar , ya que esto consume en base.   
 const deleteTask = async (req,res) => {
 
 }
