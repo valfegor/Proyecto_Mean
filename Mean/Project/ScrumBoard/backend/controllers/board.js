@@ -29,12 +29,10 @@ const saveTask = async (req,res) => {
 
 
 const listTask = async (req,res) =>{
-    //requerimos a mongoose
-    //esta linea lo que hace es lo siguiene se utiliza mongoose para validar es decir valida si es un formato valido de mongo , opcion en caso tal donde no se permita agregar otro middleware , es decir valida si es un usuario de mongo o es inyectado.
-    //es una validacion
-    const validId = mongoose.Types._ObjectId.isValid(req.user.id);
-    if(!validId) return res.status(400).send("Failed the process invalid ID");
-
+    const board = await Board.find({userId:req.user._id});
+    if(!board || board.length  === 0) return res.status(400).send("Process failed:No tasks");
+    return res.status(200).send({board});
+    
 }
 
 
