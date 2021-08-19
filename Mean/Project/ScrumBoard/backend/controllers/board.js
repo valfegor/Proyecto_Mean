@@ -22,4 +22,21 @@ const saveTask = async (req,res) => {
 
 }
 
-module.exports = {saveTask};
+
+const listTask = async (req,res) =>{
+
+}
+
+
+const updateTask = async (req,res) => {
+
+}
+
+
+const deleteTask = async (req,res) => {
+
+}
+
+
+
+module.exports = {saveTask,listTask,updateTask,deleteTask};
