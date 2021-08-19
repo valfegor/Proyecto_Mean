@@ -38,13 +38,8 @@ const listTask = async (req,res) =>{
 
 
 const updateTask = async (req,res) => {
-if(
-    !req.body._id || 
-    !req.body.name ||
-    !req.body.taskStatus ||
-    !req.body.description
-)
-return res.status(400).send("Process failed:Incomplete data");
+if(!req.body._id || !req.body.name || !req.body.taskStatus ||!req.body.description) return res.status(400).send("Process failed:Incomplete data");
+
 
 let board = await Board.findByIdAndUpdate(req.body._id,{
     userId:req.user._id,
