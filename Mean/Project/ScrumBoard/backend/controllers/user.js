@@ -64,7 +64,7 @@ const registerAdmin = async (req, res) => {
     !req.body.name ||
     !req.body.email ||
     !req.body.password ||
-    req.body.roleId
+    !req.body.roleId
   )
     return res.status(401).send("incomplete data");
 
