@@ -1,78 +1,116 @@
 //controlador del usuario.
 //recordemos que usuario tiene almacenados diferentes metodos como el
 const User = require("../models/user");
-const Role = require("../models/role")
+const Role = require("../models/role");
 const bcrypt = require("bcrypt");
+const mongoose = require("mongoose");
 
+const registerUser = async (req, res) => {
+  if (!req.body.name || !req.body.email || !req.body.password)
+    return res.status(401).send("incomplete data");
 
-const registerUser = async (req,res) => {
+  let existingUser = await User.findOne({ email: req.body.email });
 
-    if(!req.body.name || !req.body.email || !req.body.password) return res.status(401).send("incomplete data");
+  if (existingUser)
+    return res.status(401).send("Process:failed already one email");
 
-    let existingUser = await User.findOne({email:req.body.email});
+  let hash = await bcrypt.hash(req.body.password, 10);
 
-    if(existingUser) return res.status(401).send("Process:failed already one email")
+  let role = await Role.findOne({ name: "admin" });
 
-    let hash = await bcrypt.hash(req.body.password,10);
+  if (!role)
+    return res.status(401).send("Process failed : No role Was Assigned");
 
-    let role = await Role.findOne({name:"user"});
+  let user = new User({
+    name: req.body.name,
+    email: req.body.email,
+    password: hash,
+    roleId: role._id,
+    dbStatus: true,
+  });
 
-    if(!role) return res.status(401).send("Process failed : No role Was Assigned");
+  let result = await user.save();
 
+  if (!result) return res.status(401).send("Please try again");
 
-    let user = new User({
-            name:req.body.name,
-            email:req.body.email,
-            password:hash,
-            roleId:role._id,
-            dbStatus:true,
-    });
+  //aqui si se aplica el try catch
 
-  
+  try {
+    let jwt = user.generateJWT();
+    return res.status(200).send({ jwt });
+  } catch (e) {
+    return res.status(400).send("fallo al registrar los usuarios");
+  }
+};
 
+const listUser = async (req, res) => {
+  //el parametro el filtro por el cual va a buscar esto esta en rutas
+  //el param tiene los parametros que tiene en la url , es lo qeu viene pegado a la url
+  //expresion regular un nombre o algo parecido o un vacio
+  //Expresion regular
+  //populate
+  let user = await User.find({ name: new RegExp(req.params["name"], "i") })
+    .populate("roleId")
+    .exec();
 
-    let result = await user.save();
+  if (!user || user.length === 0)
+    return res.status(401).send("No hay usuarios");
 
-    if(!result) return res.status(401).send("Please try again");
+  return res.status(200).send({ user });
+};
 
-    //aqui si se aplica el try catch
-    
-    try {
-        let jwt = user.generateJWT();
-        return res.status(200).send({jwt});
-    } catch (e) {
-        return res.status(400).send("fallo al registrar los usuarios");
-    }
+const registerAdmin = async (req, res) => {
+  if (
+    !req.body.name ||
+    !req.body.email ||
+    !req.body.password ||
+    req.body.roleId
+  )
+    return res.status(401).send("incomplete data");
 
-}
+  //validar si el id es correcto
 
+  let valiId = await mongoose.Types.ObjectId.isValid(req.body.roleId);
 
-const listUser = async (req,res) => {
-    //el parametro el filtro por el cual va a buscar esto esta en rutas
-    //el param tiene los parametros que tiene en la url , es lo qeu viene pegado a la url
-    //expresion regular un nombre o algo parecido o un vacio
-    //Expresion regular
-    //populate
-    let user = await User.find({name: new RegExp(req.params["name"],"i")}).populate("roleId").exec();
+  if (!valiId) return res.status(400).send("Invalid token");
 
-    if(!user || user.length === 0) return res.status(401).send("No hay usuarios");
+  let existingUser = await User.findOne({ email: req.body.email });
 
-    return res.status(200).send({user});
+  if (existingUser)
+    return res.status(401).send("Process:failed already one email");
 
+  let hash = await bcrypt.hash(req.body.password, 10);
 
-}
+  let user = new User({
+    name: req.body.name,
+    email: req.body.email,
+    password: hash,
+    roleId: req.body.roleId,
+    dbStatus: true,
+  });
 
-const registerAdmin = async (req,res) =>{
+  let result = await user.save();
 
-}
+  if (!result) return res.status(401).send("Please try again");
 
+  //aqui si se aplica el try catch
 
-const updateUser = async (req,res) => {
+  try {
+    let jwt = user.generateJWT();
+    return res.status(200).send({ jwt });
+  } catch (e) {
+    return res.status(400).send("fallo al registrar los usuarios");
+  }
+};
 
-}
+const updateUser = async (req, res) => {};
 
-const deleteUser = async (req,res) => {
+const deleteUser = async (req, res) => {};
 
-}
-
-module.exports = {registerUser,listUser,registerAdmin,updateUser,deleteUser}
+module.exports = {
+  registerUser,
+  listUser,
+  registerAdmin,
+  updateUser,
+  deleteUser,
+};
