@@ -62,5 +62,17 @@ const listUser = async (req,res) => {
 
 }
 
+const registerAdmin = async (req,res) =>{
 
-module.exports = {registerUser,listUser}
+}
+
+
+const updateUser = async (req,res) => {
+
+}
+
+const deleteUser = async (req,res) => {
+
+}
+
+module.exports = {registerUser,listUser,registerAdmin,updateUser,deleteUser}
