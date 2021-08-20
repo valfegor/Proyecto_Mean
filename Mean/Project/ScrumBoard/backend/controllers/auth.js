@@ -14,8 +14,9 @@ const login = async(req,res)=>{
     let user = await User.findOne({email:req.body.email});
 
     if(!user)return res.status(401).send("incorrect email or password")
-
-    if(user.dbStatus === "false") return res.status(400).send('Sorry this user is not active');
+    
+    console.log(user.dbStatus)
+    if(user.dbStatus === false) return res.status(400).send('Sorry this user is not active');
 
     //elbcryptn os ayuda a comprar una contraseña encriptada con una normalita.
 

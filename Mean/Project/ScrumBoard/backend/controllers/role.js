@@ -54,6 +54,18 @@ const listRole = async (req,res) => {
     return res.status(200).send({role});
 };
 
+
+const updateRole = async (req,res) => {
+    if(!req.body.description || !req.body._id) return res.status(401).send("Sorry please check all the camps");
+
+    const role = await Role.findByIdAndUpdate(req.body._id,{
+        description : req.body.description,
+    })
+
+    if(!role) return res.status(401).send("Sorry please try again");
+    return res.status(200).send({role});
+}
+
 //Exportamos las funciones , si tenemos mas , podemos agregarla a esta lista
 //esto hace una aplicacion escalable
-module.exports = {registerRole, listRole};
+module.exports = {registerRole, listRole,updateRole};
