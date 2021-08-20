@@ -108,21 +108,37 @@ const updateUser = async (req, res) => {
         !req.body._id   ||
         !req.body.name ||
         !req.body.email ||
-        !req.body.password ||
         !req.body.roleId 
         
       )return res.status(400).send("Sorry");
 
-      const hash = await bcrypt.hash(req.body.password,10);
+      let pass = "";
+        
+
+        if(req.body.password){
+            //si en el formulario viene el password es decir el usuario quiere editar
+            //entonces se sobre escribe la contraseña
+        pass = await bcrypt.hash(req.body.password,10);
+        }else{
+            let userFind = await User.findOne({email:req.body.email});
+            pass = userFind.password
+        }
+
+      
 
       //modelo.
 
       let user  = await User.findByIdAndUpdate(req.body._id,{
           name:req.body.name,
           email:req.body.email,
-          password:hash,
+          password:pass,
           roleId:req.body.roleId,
       })
+
+
+      if(!user) return res.status(400).send("error editing the user");
+
+      return res.status(200).send({user});
 };
 
 const deleteUser = async (req, res) => {};
