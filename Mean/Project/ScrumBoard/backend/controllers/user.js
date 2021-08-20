@@ -103,7 +103,27 @@ const registerAdmin = async (req, res) => {
   }
 };
 
-const updateUser = async (req, res) => {};
+const updateUser = async (req, res) => {
+    if (
+        !req.body._id   ||
+        !req.body.name ||
+        !req.body.email ||
+        !req.body.password ||
+        !req.body.roleId 
+        
+      )return res.status(400).send("Sorry");
+
+      const hash = await bcrypt.hash(req.body.password,10);
+
+      //modelo.
+
+      let user  = await User.findByIdAndUpdate(req.body._id,{
+          name:req.body.name,
+          email:req.body.email,
+          password:hash,
+          roleId:req.body.roleId,
+      })
+};
 
 const deleteUser = async (req, res) => {};
 
