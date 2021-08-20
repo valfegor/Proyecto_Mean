@@ -4,6 +4,13 @@ const Board  = require('../models/board');
 //importamos moongose
 
 const mongoose = require("mongoose");
+//manipula los ficheros que tengamos
+const fs = require("fs");
+
+//necesitamos obtener bien la ruta para extraer la imagen
+const path = require("path");
+
+
 
 const saveTask = async (req,res) => {
 
@@ -37,7 +44,7 @@ const listTask = async (req,res) =>{
 }
 
 const saveTaskimg = async (req, res) => {
-    
+
 }
 
 const updateTask = async (req,res) => {
@@ -73,4 +80,4 @@ return res.status(200).send("Task deleted");
 
 
 
-module.exports = {saveTask,listTask,updateTask,deleteTask};
+module.exports = {saveTask,listTask,updateTask,deleteTask,saveTaskimg};
