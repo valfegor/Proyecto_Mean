@@ -141,7 +141,19 @@ const updateUser = async (req, res) => {
       return res.status(200).send({user});
 };
 
-const deleteUser = async (req, res) => {};
+const deleteUser = async (req, res) => {
+    //en el body envio el id del producto interno
+    if(!req.body._id) return res.status(400).send("Incomplete data");
+    //al usuario lo buscamos por el id
+    const user = await User.findByIdAndUpdate(req.body._id,{
+        dbStatus:false,
+
+    });
+    //acutalizamos y guardamos
+    if(!user) return res.status(400).send("Sorry try again");
+
+    return res.status(200).send({ user });
+};
 
 module.exports = {
   registerUser,
