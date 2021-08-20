@@ -36,6 +36,9 @@ const listTask = async (req,res) =>{
 
 }
 
+const saveTaskimg = async (req, res) => {
+    
+}
 
 const updateTask = async (req,res) => {
 if(!req.body._id || !req.body.name || !req.body.taskStatus ||!req.body.description) return res.status(400).send("Process failed:Incomplete data");
